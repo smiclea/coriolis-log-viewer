@@ -1,0 +1,6 @@
+{
+  "name": "LogsList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LogsList.jsx"
+}

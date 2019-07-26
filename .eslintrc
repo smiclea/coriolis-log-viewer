@@ -1,0 +1,156 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__PROD__": true,
+    "__DEBUG__": true,
+    "__COVERAGE__": true,
+    "__BASENAME__": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.dev.js"
+      }
+    }
+  },
+  "rules": {
+    "lines-between-class-members": "off",
+    "react/no-access-state-in-setstate": "off",
+    "no-underscore-dangle": "off",
+    "react/destructuring-assignment": "off",
+    "react/sort-comp": [
+      1,
+      {
+        "order": [
+          "static-methods",
+          "displayName",
+          "propTypes",
+          "contextTypes",
+          "childContextTypes",
+          "mixins",
+          "statics",
+          "defaultProps",
+          "state",
+          "type-annotations",
+          "instance-variables",
+          "getters",
+          "setters",
+          "constructor",
+          "getDefaultProps",
+          "getInitialState",
+          "getChildContext",
+          "getDerivedStateFromProps",
+          "lifecycle",
+          "everything-else",
+          "^handle.+$",
+          "render"
+        ],
+        "groups": {
+          "lifecycle": [
+            "componentWillMount",
+            "componentDidMount",
+            "componentWillReceiveProps",
+            "shouldComponentUpdate",
+            "componentWillUpdate",
+            "getSnapshotBeforeUpdate",
+            "componentDidUpdate",
+            "componentDidCatch",
+            "componentWillUnmount"
+          ]
+        }
+      }
+    ],
+    "semi": [
+      2,
+      "never"
+    ],
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
+    "newline-per-chained-call": 0,
+    "class-methods-use-this": 0,
+    "max-len": 0,
+    "prefer-const": 0,
+    "arrow-parens": 0,
+    "react/prefer-stateless-function": 0,
+    "react/no-array-index-key": 0,
+    "react/no-danger": 0,
+    "no-param-reassign": 0,
+    "no-shadow": 0,
+    "arrow-body-style": 0,
+    "global-require": 0,
+    "no-unused-expressions": 0,
+    "no-confusing-arrow": 0,
+    "no-console": "off",
+    "no-nested-ternary": 0,
+    "import/no-dynamic-require": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+    "react/require-default-props": 0,
+    "react/forbid-prop-types": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "flowtype/boolean-style": [
+      "error",
+      "boolean"
+    ],
+    "flowtype/define-flow-type": "warn",
+    "flowtype/delimiter-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "flowtype/generic-spacing": [
+      "error",
+      "never"
+    ],
+    "flowtype/no-primitive-constructor-types": "error",
+    "flowtype/object-type-delimiter": [
+      "error",
+      "comma"
+    ],
+    "flowtype/require-parameter-type": "off",
+    "flowtype/require-return-type": "off",
+    "flowtype/require-valid-file-annotation": "off",
+    "flowtype/semi": [
+      "error",
+      "never"
+    ],
+    "flowtype/space-after-type-colon": [
+      "error",
+      "always"
+    ],
+    "flowtype/space-before-generic-bracket": [
+      "error",
+      "never"
+    ],
+    "flowtype/space-before-type-colon": [
+      "error",
+      "never"
+    ],
+    "flowtype/union-intersection-spacing": [
+      "error",
+      "always"
+    ],
+    "flowtype/use-flow-type": "error",
+    "flowtype/valid-syntax": "error",
+    "prefer-destructuring": "off",
+    "react/jsx-one-expression-per-line": [
+      {
+        "allow": "literal"
+      }
+    ],
+  },
+  "plugins": [
+    "flowtype"
+  ]
+}

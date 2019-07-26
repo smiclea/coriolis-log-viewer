@@ -1,0 +1,6 @@
+{
+  "name": "LogViewerPage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LogViewerPage.jsx"
+}
