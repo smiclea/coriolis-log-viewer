@@ -1,9 +1,8 @@
 // @flow
 
 class StorageCaller {
-  getStoreArray(name: string): any[] {
-    let items: any[] = JSON.parse(localStorage.getItem(name) || '[]')
-    return items
+  getStore(name: string) {
+    return JSON.parse(localStorage.getItem(name) || '{}')
   }
 
   setStore(name: string, value: any) {

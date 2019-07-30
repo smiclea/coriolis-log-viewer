@@ -4,18 +4,20 @@ import { observable, action } from 'mobx'
 
 import storageCaller from '../utils/StorageCaller'
 
-import type { LogStorage, LogUI } from '../../types/Log'
+import type {
+  LogStorage, LogRequestUI, LogMeta, LogStorageRequests,
+} from '../../types/Log'
 
 const STORAGE_NAME = 'logs'
 
-const storageToUI = (logsStorage: LogStorage[]): LogUI[] => {
-  let logs: LogUI[] = []
-
-  logsStorage.forEach((l, i) => {
+const storageToUI = (logStorageRequests: ?LogStorageRequests[]): LogRequestUI[] => {
+  let logs: LogRequestUI[] = []
+  let storageRequests = logStorageRequests || []
+  storageRequests.forEach((l, i) => {
     if (l.type === 'RESPONSE') {
       return
     }
-    let log: LogUI = {
+    let log: LogRequestUI = {
       url: l.url,
       method: l.method,
       stack: l.stack || '-',
@@ -27,7 +29,7 @@ const storageToUI = (logsStorage: LogStorage[]): LogUI[] => {
       requestError: l.requestError,
     }
 
-    let response = logsStorage.filter((_, idx) => idx > i)
+    let response = storageRequests.filter((_, idx) => idx > i)
       .find(ls => ls.type === 'RESPONSE' && ls.url === l.url && ls.method === l.method)
     if (response) {
       log.responseDate = response.date
@@ -44,17 +46,21 @@ const storageToUI = (logsStorage: LogStorage[]): LogUI[] => {
 }
 
 class LogStore {
-  @observable logs: LogUI[] = []
+  @observable requests: LogRequestUI[] = []
+  @observable meta: ?LogMeta = null
 
   @action
-  loadLogs() {
-    this.logs = storageToUI(storageCaller.getStoreArray(STORAGE_NAME))
+  loadLog() {
+    let logStorage: LogStorage = storageCaller.getStore(STORAGE_NAME)
+    let { requests, ...meta } = logStorage
+    this.meta = meta
+    this.requests = storageToUI(requests)
   }
 
   @action
-  saveLogs(logs: LogStorage[]) {
-    this.logs = storageToUI(logs)
-    storageCaller.setStore(STORAGE_NAME, logs)
+  saveLog(log: LogStorage) {
+    storageCaller.setStore(STORAGE_NAME, log)
+    this.loadLog()
   }
 }
 

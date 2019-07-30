@@ -1,6 +1,6 @@
 // @flow
 
-export type LogStorage = {
+export type LogStorageRequests = {
   url: string,
   method: string,
   type: 'REQUEST' | 'RESPONSE',
@@ -12,7 +12,20 @@ export type LogStorage = {
   stack?: string,
 }
 
-export type LogUI = {
+export type LogStorage = {
+  requests?: LogStorageRequests[],
+  userAgent?: string,
+  platform?: string,
+  version?: string,
+}
+
+export type LogMeta = {
+  userAgent?: string,
+  platform?: string,
+  version?: string,
+}
+
+export type LogRequestUI = {
   url: string,
   method: string,
   stack: string,

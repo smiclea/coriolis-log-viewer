@@ -4,7 +4,7 @@ import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { observer } from 'mobx-react'
 
-import type { LogUI } from '../../../../types/Log'
+import type { LogRequestUI, LogMeta } from '../../../../types/Log'
 
 const Wrapper = styled.div``
 const LogsHeader = styled.div`
@@ -69,9 +69,23 @@ const LogDetailValue = styled.div`
     margin: 0;
   }
 `
+const MetaHeader = styled.div`
+  margin-bottom: 32px;
+  background: rgba(255, 255, 0, 0.2);
+  padding: 16px;
+`
+const MetaHeaderData = styled.div`
+  display: flex;
+`
+const MetaHeaderLabel = styled.div`
+  font-weight: bold;
+  margin-right: 8px;
+`
+const MetaHeaderValue = styled.div``
 
 type Props = {
-  logs: LogUI[],
+  requests: LogRequestUI[],
+  meta: ?LogMeta,
 }
 type State = {
   openedIds: string[],
@@ -83,7 +97,7 @@ class LogsList extends React.Component<Props, State> {
     openedIds: [],
   }
 
-  handleMoreInfo(l: LogUI) {
+  handleMoreInfo(l: LogRequestUI) {
     let id = `${l.url}${l.requestDate}${l.responseDate}`
     let foundId = this.state.openedIds.find(i => i === id)
     if (foundId) {
@@ -97,19 +111,43 @@ class LogsList extends React.Component<Props, State> {
     }
   }
 
+  renderMetaData() {
+    if (!this.props.meta) {
+      return null
+    }
+
+    return (
+      <MetaHeader>
+        <MetaHeaderData>
+          <MetaHeaderLabel>UI Version</MetaHeaderLabel>
+          <MetaHeaderValue>{this.props.meta.version}</MetaHeaderValue>
+        </MetaHeaderData>
+        <MetaHeaderData>
+          <MetaHeaderLabel>Platform</MetaHeaderLabel>
+          <MetaHeaderValue>{this.props.meta.platform}</MetaHeaderValue>
+        </MetaHeaderData>
+        <MetaHeaderData>
+          <MetaHeaderLabel>Browser</MetaHeaderLabel>
+          <MetaHeaderValue>{this.props.meta.userAgent}</MetaHeaderValue>
+        </MetaHeaderData>
+      </MetaHeader>
+    )
+  }
+
   render() {
     let colummnsRatios = [50, 10, 23, 17]
     let columnNames = ['Request', 'Status', 'Window', 'Sent at']
 
     return (
       <Wrapper>
+        {this.renderMetaData()}
         <LogsHeader>
           {columnNames.map((n, i) => (
             <LogsHeaderColumn key={n} ratio={colummnsRatios[i]}>{n}</LogsHeaderColumn>
           ))}
         </LogsHeader>
         <LogsBody>
-          {this.props.logs.map(l => {
+          {this.props.requests.map(l => {
             let id = `${l.url}${l.requestDate}${l.responseDate}`
             let open = this.state.openedIds.find(idx => idx === id)
             return (

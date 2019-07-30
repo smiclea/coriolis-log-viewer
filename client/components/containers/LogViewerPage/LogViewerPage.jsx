@@ -18,11 +18,11 @@ type Props = {}
 @observer
 class LogViewerPage extends React.Component<Props> {
   componentWillMount() {
-    logStore.loadLogs()
+    logStore.loadLog()
   }
 
   handleFileChange(content: string) {
-    logStore.saveLogs(JSON.parse(content))
+    logStore.saveLog(JSON.parse(content))
   }
 
   render() {
@@ -30,9 +30,12 @@ class LogViewerPage extends React.Component<Props> {
       <Wrapper>
         <DragDrop
           onFileChange={content => { this.handleFileChange(content) }}
-          showEmpty={logStore.logs.length === 0}
+          showEmpty={logStore.requests.length === 0}
         >
-          <LogsList logs={logStore.logs} />
+          <LogsList
+            requests={logStore.requests}
+            meta={logStore.meta}
+          />
         </DragDrop>
       </Wrapper>
     )
