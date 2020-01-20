@@ -18,7 +18,7 @@
 
 ## Environment Variables ##
 
-```
+```(bash)
 PORT=3010
 BASENAME=''
 NODE_MODE='production'
