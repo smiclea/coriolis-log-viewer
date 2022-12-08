@@ -31,3 +31,25 @@ The `./env.js` file holds the default values for each of these variables.
 - PORT: the port on which to run the node server
 - BASENAME: the basename URL path of the licensing app (empty string means the URL of the application is at the root of the website's URL)
 - NODE_MODE: specify whether to configure the server for development or production
+
+
+## Run in Docker container ##
+To build the docker image:
+```(bash)
+docker build --pull --rm -f "Dockerfile" -t coriolislogviewer:latest "."
+```
+
+Create and start the container from image:
+```(bash)
+docker create --name coriolis-log-viewer --network host coriolislogviewer:latest
+docker start coriolis-log-viewer
+```
+
+To get access information:
+```(bash)
+docker logs coriolis-log-viewer
+```
+output should contain:
+```
+Server is available at http://localhost:3020
+```
